@@ -39,7 +39,7 @@ function runDDA() {
   }
   const { pts, rows, steps } = ddaAlgorithm(x1, y1, x2, y2);
   const W = CANVAS_W, H = CANVAS_H;
-  const scale = getScale([{x: x1, y: y1}, {x: x2, y: y2}], W, H);
+  const scale = FIXED_SCALE;
   drawGrid(ctx, W, H);
   const p1 = toCanvas(x1, y1, W, H, scale);
   const p2 = toCanvas(x2, y2, W, H, scale);
@@ -54,10 +54,6 @@ function runDDA() {
     drawPoint(ctx, cp.x, cp.y, COLORS.primary, Math.max(5, scale * 0.6));
     return { cx: cp.x, cy: cp.y, rowIndex: i };
   });
-  ctx.fillStyle = COLORS.primary;
-  ctx.font = 'bold 10px Tahoma, sans-serif';
-  ctx.fillText(`P1(${x1},${y1})`, p1.x + 8, p1.y - 6);
-  ctx.fillText(`P2(${x2},${y2})`, p2.x + 8, p2.y - 6);
   ctx.restore();
   registerPoints(drawnPts);
   pointCountSpan.textContent = pts.length;

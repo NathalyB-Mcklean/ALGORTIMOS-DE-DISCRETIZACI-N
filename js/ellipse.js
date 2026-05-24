@@ -50,7 +50,7 @@ function runEllipse() {
   }
   const { allPts, rows } = ellipseAlgorithm(cx, cy, a, b);
   const W = CANVAS_W, H = CANVAS_H;
-  const scale = getScale([{x:cx+a,y:cy+b},{x:cx-a,y:cy-b}], W, H);
+  const scale = FIXED_SCALE;
   drawGrid(ctx, W, H);
   const center = toCanvas(cx, cy, W, H, scale);
   ctx.save();
@@ -66,9 +66,6 @@ function runEllipse() {
     drawPoint(ctx, cp.x, cp.y, COLORS.warm, Math.max(4, scale*0.5));
     return { cx: cp.x, cy: cp.y, rowIndex: Math.floor(i / 4) };
   });
-  ctx.fillStyle = COLORS.warm;
-  ctx.font = 'bold 10px Tahoma, sans-serif';
-  ctx.fillText(`C(${cx},${cy}) | a=${a}, b=${b}`, center.x+8, center.y-8);
   drawPoint(ctx, center.x, center.y, '#000000', 4);
   ctx.restore();
   registerPoints(drawnPts);

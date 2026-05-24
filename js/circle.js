@@ -40,7 +40,7 @@ function runCircle() {
   }
   const { allPts, rows } = circleAlgorithm(cx, cy, r);
   const W = CANVAS_W, H = CANVAS_H;
-  const scale = getScale([{x:cx+r,y:cy+r},{x:cx-r,y:cy-r}], W, H);
+  const scale = FIXED_SCALE;
   drawGrid(ctx, W, H);
   const center = toCanvas(cx, cy, W, H, scale);
   ctx.save();
@@ -54,9 +54,6 @@ function runCircle() {
     drawPoint(ctx, cp.x, cp.y, COLORS.tertiary, Math.max(4, scale*0.5));
     return { cx: cp.x, cy: cp.y, rowIndex: Math.floor(i / 8) };
   });
-  ctx.fillStyle = COLORS.tertiary;
-  ctx.font = 'bold 10px Tahoma, sans-serif';
-  ctx.fillText(`C(${cx},${cy}) | r = ${r}`, center.x+8, center.y-8);
   drawPoint(ctx, center.x, center.y, '#000000', 4);
   ctx.restore();
   registerPoints(drawnPts);

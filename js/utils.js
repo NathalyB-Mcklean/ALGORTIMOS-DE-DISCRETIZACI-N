@@ -10,6 +10,7 @@ const COLORS = {
 
 const CANVAS_W = 560;
 const CANVAS_H = 420;
+const FIXED_SCALE = 14; // -20 a 20 en X, -15 a 15 en Y aprox
 
 function setupCanvas(canvas) {
   const dpr = window.devicePixelRatio || 1;
@@ -23,42 +24,61 @@ function setupCanvas(canvas) {
 }
 
 function drawGrid(ctx, W, H) {
-  const step = 40;
+  const scale = FIXED_SCALE;
   ctx.fillStyle = '#ffffff';
   ctx.fillRect(0, 0, W, H);
-  ctx.strokeStyle = COLORS.grid;
-  ctx.lineWidth = 0.8;
-  for (let x = 0; x <= W; x += step) {
-    ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, H); ctx.stroke();
-  }
-  for (let y = 0; y <= H; y += step) {
-    ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(W, y); ctx.stroke();
-  }
+
   const cx = Math.floor(W / 2);
   const cy = Math.floor(H / 2);
+
+  // Líneas de cuadrícula cada unidad
+  ctx.strokeStyle = COLORS.grid;
+  ctx.lineWidth = 0.8;
+  for (let x = cx % scale; x <= W; x += scale) {
+    ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, H); ctx.stroke();
+  }
+  for (let y = cy % scale; y <= H; y += scale) {
+    ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(W, y); ctx.stroke();
+  }
+
+  // Ejes
   ctx.strokeStyle = COLORS.axis;
   ctx.lineWidth = 1.5;
   ctx.beginPath(); ctx.moveTo(cx, 0); ctx.lineTo(cx, H); ctx.stroke();
   ctx.beginPath(); ctx.moveTo(0, cy); ctx.lineTo(W, cy); ctx.stroke();
+
+  // Labels numéricos cada 5 unidades
   ctx.fillStyle = COLORS.axisLabel;
   ctx.font = '9px Tahoma, sans-serif';
   ctx.textAlign = 'center';
-  for (let x = step; x < W; x += step) {
-    const val = Math.round((x - cx) / step);
-    if (val !== 0) ctx.fillText(val, x, cy + 14);
+  for (let val = -20; val <= 20; val += 5) {
+    if (val === 0) continue;
+    const px = cx + val * scale;
+    if (px >= 0 && px <= W) {
+      ctx.fillText(val, px, cy + 14);
+    }
   }
   ctx.textAlign = 'right';
-  for (let y = step; y < H; y += step) {
-    const val = -Math.round((y - cy) / step);
-    if (val !== 0) ctx.fillText(val, cx - 6, y + 4);
+  const maxY = Math.floor(cy / scale);
+  for (let val = -maxY; val <= maxY; val += 5) {
+    if (val === 0) continue;
+    const py = cy - val * scale;
+    if (py >= 0 && py <= H) {
+      ctx.fillText(val, cx - 6, py + 4);
+    }
   }
-  ctx.fillStyle = COLORS.axisLabel;
+
+  // Cero
   ctx.textAlign = 'right';
   ctx.fillText('0', cx - 6, cy + 14);
+
+  // Flechas de ejes
   ctx.strokeStyle = COLORS.axis;
   ctx.lineWidth = 1.5;
   ctx.beginPath(); ctx.moveTo(W - 10, cy - 4); ctx.lineTo(W, cy); ctx.lineTo(W - 10, cy + 4); ctx.stroke();
   ctx.beginPath(); ctx.moveTo(cx - 4, 10); ctx.lineTo(cx, 0); ctx.lineTo(cx + 4, 10); ctx.stroke();
+
+  // X Y labels
   ctx.fillStyle = COLORS.primary;
   ctx.font = 'bold 11px Tahoma, sans-serif';
   ctx.textAlign = 'center';
@@ -81,13 +101,7 @@ function drawPoint(ctx, px, py, color, size) {
 }
 
 function getScale(points, W, H) {
-  if (!points.length) return 40;
-  const xs = points.map(p => Math.abs(p.x));
-  const ys = points.map(p => Math.abs(p.y));
-  const maxX = Math.max(...xs, 1);
-  const maxY = Math.max(...ys, 1);
-  const s = Math.min((W / 2 - 50) / maxX, (H / 2 - 50) / maxY, 40);
-  return Math.max(s, 8);
+  return FIXED_SCALE;
 }
 
 function buildTable(containerId, headers, rows) {
