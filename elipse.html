@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Elipse - Algoritmo de Discretización</title>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header>
+    <h1>Proyecto N°1 — <span>Elipse (Punto Medio)</span></h1>
+  </header>
+  <div class="app">
+    <aside class="sidebar">
+      <a href="index.html" class="nav-btn">Presentación</a>
+      <div class="divider"></div>
+      <div class="sidebar-label">Algoritmos</div>
+      <a href="dda.html" class="nav-btn">DDA</a>
+      <a href="bresenham.html" class="nav-btn">Bresenham</a>
+      <a href="circunferencia.html" class="nav-btn">Circunferencia</a>
+      <a href="elipse.html" class="nav-btn active">Elipse</a>
+    </aside>
+    <main class="main algo-view">
+      <div class="controls-panel">
+        <div class="panel-title">Elipse</div>
+        <div class="info-box">
+          <strong>Algoritmo Punto Medio — Elipse</strong><br>
+          Se divide en dos regiones según la pendiente. Usa simetría de 4 cuadrantes.
+          Parámetros: semiejes <strong>a</strong> (horizontal) y <strong>b</strong> (vertical).
+        </div>
+        <div class="form-group">
+          <label>Centro (cx, cy)</label>
+          <div class="input-row">
+            <input class="inp" type="number" id="cx" placeholder="cx" value="0">
+            <input class="inp" type="number" id="cy" placeholder="cy" value="0">
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Semieje A (horizontal)</label>
+          <div class="input-row">
+            <input class="inp inp-single" type="number" id="a" placeholder="semieje a" value="10" min="1">
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Semieje B (vertical)</label>
+          <div class="input-row">
+            <input class="inp inp-single" type="number" id="b" placeholder="semieje b" value="6" min="1">
+          </div>
+        </div>
+        <button class="btn-run" id="runBtn">▶ Ejecutar Elipse</button>
+        <button class="btn-clear" id="clearBtn">✕ Limpiar</button>
+      </div>
+      <div class="canvas-area">
+        <div class="canvas-toolbar">
+          <span class="toolbar-stat">Algoritmo: <span>Punto Medio — Elipse</span></span>
+          <span class="toolbar-stat">Semiejes a/b: <span id="abStat">—</span></span>
+          <span class="toolbar-stat">Puntos totales: <span id="pointCount">—</span></span>
+        </div>
+        <div class="canvas-body">
+          <div class="canvas-wrap">
+            <canvas id="algorithmCanvas" width="560" height="420"></canvas>
+          </div>
+          <div class="table-section">
+            <div class="table-head">
+              <h3>Cuadrante 1 — reflejo simétrico</h3>
+              <span class="point-count" id="tableCount"></span>
+            </div>
+            <div id="tableBody">
+              <div class="empty-table">Ejecuta el algoritmo para ver los puntos calculados.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+  <script src="js/utils.js"></script>
+  <script src="js/ellipse.js"></script>
+</body>
+</html>

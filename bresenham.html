@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bresenham - Algoritmo de Discretización</title>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header>
+    <h1>Proyecto N°1 — <span>Bresenham</span></h1>
+  </header>
+  <div class="app">
+    <aside class="sidebar">
+      <a href="index.html" class="nav-btn">Presentación</a>
+      <div class="divider"></div>
+      <div class="sidebar-label">Algoritmos</div>
+      <a href="dda.html" class="nav-btn">DDA</a>
+      <a href="bresenham.html" class="nav-btn active">Bresenham</a>
+      <a href="circunferencia.html" class="nav-btn">Circunferencia</a>
+      <a href="elipse.html" class="nav-btn">Elipse</a>
+    </aside>
+    <main class="main algo-view">
+      <div class="controls-panel">
+        <div class="panel-title">Bresenham</div>
+        <div class="info-box">
+          <strong>Algoritmo de Bresenham</strong><br>
+          Usa solo aritmética entera mediante una variable de decisión (p).
+          Más eficiente que DDA al evitar operaciones con flotantes.
+        </div>
+        <div class="form-group">
+          <label>Punto Inicial (x₁, y₁)</label>
+          <div class="input-row">
+            <input class="inp" type="number" id="x1" placeholder="x₁" value="0">
+            <input class="inp" type="number" id="y1" placeholder="y₁" value="0">
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Punto Final (x₂, y₂)</label>
+          <div class="input-row">
+            <input class="inp" type="number" id="x2" placeholder="x₂" value="10">
+            <input class="inp" type="number" id="y2" placeholder="y₂" value="7">
+          </div>
+        </div>
+        <button class="btn-run" id="runBtn">▶ Ejecutar Bresenham</button>
+        <button class="btn-clear" id="clearBtn">✕ Limpiar</button>
+      </div>
+      <div class="canvas-area">
+        <div class="canvas-toolbar">
+          <span class="toolbar-stat">Algoritmo: <span>Bresenham</span></span>
+          <span class="toolbar-stat">Puntos: <span id="pointCount">—</span></span>
+          <span class="toolbar-stat">Decisión inicial p₀: <span id="p0Value">—</span></span>
+        </div>
+        <div class="canvas-body">
+          <div class="canvas-wrap">
+            <canvas id="algorithmCanvas" width="560" height="420"></canvas>
+          </div>
+          <div class="table-section">
+            <div class="table-head">
+              <h3>Tabla de Puntos Calculados</h3>
+              <span class="point-count" id="tableCount"></span>
+            </div>
+            <div id="tableBody">
+              <div class="empty-table">Ejecuta el algoritmo para ver los puntos calculados.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+  <script src="js/utils.js"></script>
+  <script src="js/bresenham.js"></script>
+</body>
+</html>
