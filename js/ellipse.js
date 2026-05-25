@@ -11,9 +11,12 @@ const pointCountSpan = document.getElementById('pointCount');
 const tableCountSpan = document.getElementById('tableCount');
 const tableBodyDiv   = document.getElementById('tableBody');
 
+
 function ellipseAlgorithm(cx, cy, a, b) {
   const allPts = [], rows = [];
   let step = 0;
+  //toma un solo punto $(x, y)$ calculado para el primer cuadrante y, de forma automática, 
+  // calcula y guarda sus 3 reflejos correspondientes en los demás cuadrantes
   function plot(x, y) {
     [[cx+x,cy+y],[cx-x,cy+y],[cx+x,cy-y],[cx-x,cy-y]]
       .forEach(([px,py]) => allPts.push({x:px,y:py}));

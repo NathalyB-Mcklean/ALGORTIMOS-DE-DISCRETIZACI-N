@@ -19,15 +19,18 @@ function ddaAlgorithm(x1, y1, x2, y2) {
   const yInc = dy / steps;
   let x = x1, y = y1;
   const pts = [], rows = [];
+  //calculo de posiciones
   for (let i = 0; i <= steps; i++) {
     const rx = Math.round(x), ry = Math.round(y);
     pts.push({ x: rx, y: ry });
     rows.push([i, rx, ry, x.toFixed(3), y.toFixed(3)]);
     x += xInc; y += yInc;
   }
+  //puntos, filas, pasos
   return { pts, rows, steps };
 }
 
+//se ejecuta cuando se da click en el boton
 function runDDA() {
   const x1 = parseFloat(x1Input.value);
   const y1 = parseFloat(y1Input.value);
@@ -62,6 +65,7 @@ function runDDA() {
   buildTable('tableBody', ['Paso', 'X (redondeado)', 'Y (redondeado)', 'X (real)', 'Y (real)'], rows);
 }
 
+//limpieza de la pantalla
 function clearView() {
   clearCanvas('algorithmCanvas');
   registerPoints([]);

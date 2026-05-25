@@ -8,10 +8,12 @@ const COLORS = {
   axisLabel: '#7a8a6e'
 };
 
-const CANVAS_W = 560;
-const CANVAS_H = 420;
-const FIXED_SCALE = 14; // -20 a 20 en X, -15 a 15 en Y aprox
+const CANVAS_W = 560; //ancho
+const CANVAS_H = 430; //alto
+const FIXED_SCALE = 14; // cada unidad matemática del plano cartesiano medirá exactamente 14 píxeles en la pantalla (zoom)
+//560/2  => 280/14 =20 aprox. 
 
+//para enfoque
 function setupCanvas(canvas) {
   const dpr = window.devicePixelRatio || 1;
   canvas.width = CANVAS_W * dpr;
@@ -23,6 +25,7 @@ function setupCanvas(canvas) {
   return ctx;
 }
 
+//dibuja el plano
 function drawGrid(ctx, W, H) {
   const scale = FIXED_SCALE;
   ctx.fillStyle = '#ffffff';
